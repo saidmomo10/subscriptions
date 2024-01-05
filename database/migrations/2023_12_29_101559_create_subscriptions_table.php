@@ -15,15 +15,8 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('user_id')->nullable();
             $table->integer('duration');
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
-            $table->boolean('status')->default(false);
             $table->timestamps();
-    
-            // Foreign key relation
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

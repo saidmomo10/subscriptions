@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -35,6 +38,21 @@ Route::controller(SubscriptionController::class)->middleware('auth')->group(func
     Route::get('/subscriptions-list', 'list')->name('list');
     Route::get('showSubscription/{id}', 'show')->name('showSubscription');
     Route::put('/activateSubscription/{id}', 'activate')->name('activateSubscription');
+    Route::put('/statusSubscription/{id}', 'status')->name('SubscriptionStatus');
+    Route::put('/affect-file/{id}', 'affect')->name('affectFile');
+
  });
+
+ Route::controller(FileController::class)->middleware('auth')->group(function(){
+    Route::get('/add-files', 'addFiles')->name('addFiles');
+    Route::post('/create-file', 'createFile')->name('createFile');
+    
+ });
+
+ Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    // Route::resource('products', ProductController::class);
+});
 
 require __DIR__.'/auth.php';

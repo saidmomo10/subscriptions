@@ -1,6 +1,10 @@
 <div class="container">
     <div class="main">
         <div class="main__block">
+            <div class="main__title">
+                <h2>ADD RENTAL </h2>
+                <hr>
+            </div>
             @if (session('message'))
 
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -37,40 +41,19 @@
             @endif
 
             <div class="crud">
-                <form method="POST" action="{{route('activateSubscription', ['id' => $subscription->id])}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('createFile')}}" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    <div class="field">
+                        <label for="name">Nom</label>
+                        <input  class="form-control" aria-label="default input example" type="text" name="name" value="{{old('name')}}">
+                    </div>
                     
                     <div class="btn__form">
-                        <button>Activer</button>
+                        <button>Save</button>
                     </div>
                     
                 </form> 
-                {{ $subscription }}
-                @if(isset($key))
-                    {{ $key }}
-                @endif
             </div>
         </div>
     </div>
-
-    <form method="POST" action="{{route('affectFile', ['id' => $subscription->id])}}" enctype="multipart/form-data">
-        @method('PUT')
-        @csrf
-        <div class="field mt-4"> 
-            @foreach ($availableChannels as $file)
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="file_ids[]" value="{{ $file->id }}">
-                    {{ $file->name }}
-                </label>
-            </div>
-        @endforeach
-        </div>
-
-        <div class="btn__form">
-            <button>Activer</button>
-        </div>
-    </form>
-    {{ $chaine }}
 </div>
